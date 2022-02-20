@@ -36,50 +36,46 @@ export default function Home() {
                 {news.slice(0, 1).map((newsDisplay) => {
                   return (
                     <>
-                      <div className="W-8/12 block">
-                        <img
-                          src={newsDisplay.image.large}
-                          className="h-[470px] w-[1000px] object-cover"
-                        />
-                        <a href={newsDisplay.link}>
-                          <div className="px-5 py-4 inline-block relative bg-[#fff] -mt-[70px] shadow-gray-300 shadow-md w-[90%] relative left-[5%] inline-block">
-                            <h3 className="text-2xl text-black-900 opacity-70 font-semibold hover:text-[#c00] transition-all">{newsDisplay.title}</h3>
+                      <a href={newsDisplay.link} className="hover:text-[#c00] transition-all">
+                        <div className="W-8/12 block">
+                          <img
+                            src={newsDisplay.image.large}
+                            className="w-[740px]"
+                          />
+                          <div className="relative left-[5%] inline-block -mt-[70px] px-5 py-4 w-[90%] bg-[#fff] shadow-gray-300 shadow-md">
+                            <h3 className="text-[22px] text-black-900 opacity-70 font-semibold transition-all">{newsDisplay.title}</h3>
                             <div className="flex">
-                              <h3 className="pt-2 text-sm text-red-900 font-semibold text-[#c00]">
-                                Nasional -
-                              </h3>
-                              <h3 className="pt-2 text-sm text-black-900 opacity-50">
-                                - 15 Menit yang lalu
-                              </h3>
+                              <h3 className="pt-2 text-sm text-red-900 font-semibold text-[#c00]">Nasional</h3>
+                              <h3 className="pt-2 text-sm text-black-900 opacity-50"> • 15 Menit yang lalu</h3>
                             </div>
                           </div>
-                        </a>
-                      </div>
+                        </div>
+                      </a>
 
-                      <div className="w-4/12 block">
+                      <div className="w-3/12 block">
                         {news.slice(2, 6).map((newsItem) => {
                           return (
-                            <div className="flex pb-2">
-                              <div className="px-4">
-                                <img
-                                  src={newsItem.image.small}
-                                  className="h-[85px] max-w-sm"
-                                />
-                              </div>
-                              <div>
-                                <p className="text-sm text-black-900 items-start opacity-70 font-semibold leading-5">
-                                  <a href={newsItem.link} target="_blank">
+                            <a href={newsItem.link} className="hover:text-[#c00] transition-all">
+                              <div className="flex pb-2">
+                                <div className="px-3">
+                                  <img
+                                    src={newsItem.image.small}
+                                    className="w-40 h-[75px]"
+                                  />
+                                </div>
+                                <div className="w-8/12">
+                                  <p className="text-[13px] text-black-900 items-start opacity-70 font-semibold leading-5">
                                     {newsItem.title}
-                                  </a>
-                                </p>
-                                <p className="text-sm text-red-900 font-semibold">
-                                  Teknologi
-                                </p>
-                                <p className="text-sm text-black-900 opacity-50">
-                                  15 menit lalu
-                                </p>
+                                  </p>
+                                  <p className="text-[12px] text-[#c00] font-semibold">
+                                    Teknologi
+                                  </p>
+                                  <p className="text-[12px] text-black-900 opacity-50 ">
+                                    15 menit lalu
+                                  </p>
+                                </div>
                               </div>
-                            </div>
+                            </a>
                           );
                         })}
                       </div>
