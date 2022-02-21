@@ -1,13 +1,13 @@
-import axios from "axios";
 import { useEffect, useState } from "react";
 import Navbar from "../Components/Navbar Section/Navbar";
+import DisplayImage from "../Components/News/NewsImage";
+import NewsTime from "../Components/News/NewsTime";
+import NewsTitle from "../Components/News/NewsTitle";
+import NewsType from "../Components/News/NewsType";
 
 export default function Home() {
   const [loading, setLoading] = useState(true);
   const [news, setNews] = useState({});
-
-  // let timeNow = Math.floor((new Date() - news) / 1000)
-  // let interval = timeNow / 31536000
 
   const baseURL = "https://berita-indo-api.vercel.app/v1/cnn-news/";
 
@@ -37,65 +37,45 @@ export default function Home() {
               <p>Loading...</p>
             ) : (
               <div className="flex">
-                {news.slice(0, 1).map((newsDisplay) => {
-                  return (
-                    <>
-                      <a
-                        href={newsDisplay.link}
-                        className="hover:text-[#c00] transition-all"
-                      >
-                        <div className="W-8/12 block">
-                          <img
-                            src={newsDisplay.image.large}
-                            className="w-[740px]"
-                          />
+                <div className="W-8/12 block">
+                  {news.slice(0, 1).map((newsDisplay) => {
+                    return (
+                      <>
+                        <a href={newsDisplay.link} className="hover:text-[#c00] transition-all" target="_blank">
+                          <DisplayImage data={newsDisplay} variant="large" />
                           <div className="relative left-[5%] inline-block -mt-[70px] px-5 py-4 w-[90%] bg-[#fff] shadow-gray-300 shadow-md">
-                            <h3 className="text-[22px] text-black-900 opacity-70 font-semibold transition-all">
-                              {newsDisplay.title}
-                            </h3>
-                            <div className="flex">
-                              <h3 className="pt-2 text-sm text-red-900 font-semibold text-[#c00]">
-                                Nasional
-                              </h3>
-                              <h3 className="pt-2 text-sm text-black-900 opacity-50"> • 15 Menit Lalu</h3>
+                            <NewsTitle data={newsDisplay} variant="large"/>
+                            <div className="flex pt-2">
+                              <NewsType variant="large"/>
+                              <NewsTime variant="large">18 Menit Lalu</NewsTime>
                             </div>
                           </div>
-                        </div>
-                      </a>
+                        </a>
+                      </>
+                    )
+                  })}
+                </div>
 
-                      <div className="w-3/12 block">
-                        {news.slice(2, 6).map((newsItem) => {
-                          return (
-                            <a
-                              href={newsItem.link}
-                              className="hover:text-[#c00] transition-all"
-                            >
-                              <div className="flex pb-2">
-                                <div className="px-3">
-                                  <img
-                                    src={newsItem.image.small}
-                                    className="w-40 h-[75px]"
-                                  />
-                                </div>
-                                <div className="w-8/12">
-                                  <p className="text-[13px] text-black-900 items-start opacity-70 font-semibold leading-5">
-                                    {newsItem.title}
-                                  </p>
-                                  <p className="text-[12px] text-[#c00] font-semibold">
-                                    Teknologi
-                                  </p>
-                                  <p className="text-[12px] text-black-900 opacity-50 ">
-                                    15 menit lalu
-                                  </p>
-                                </div>
-                              </div>
-                            </a>
-                          );
-                        })}
-                      </div>
-                    </>
-                  );
-                })}
+                <div className="w-3/12 block">
+                  {news.slice(2, 6).map((newsItem) => {
+                    return (
+                      <>
+                        <a href={newsItem.link} className="hover:text-[#c00] transition-all" target="_blank">
+                          <div className="flex pb-2">
+                            <div className="px-3">
+                              <DisplayImage data={newsItem} variant="small" />
+                            </div>
+                            <div className="w-8/12">
+                              <NewsTitle data={newsItem} variant="small" />
+                              <NewsType variant="small"/>
+                              <NewsTime variant="small">15 Menit Lalu</NewsTime>
+                            </div>
+                          </div>
+                        </a>
+                      </>
+                    );
+                  })}
+                </div>
               </div>
             )}
           </div>
