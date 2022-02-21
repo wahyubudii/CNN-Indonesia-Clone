@@ -1,3 +1,4 @@
+import axios from "axios";
 import { useEffect, useState } from "react";
 import Navbar from "../Components/Navbar Section/Navbar";
 
@@ -5,22 +6,25 @@ export default function Home() {
   const [loading, setLoading] = useState(true);
   const [news, setNews] = useState({});
 
+  // let timeNow = Math.floor((new Date() - news) / 1000)
+  // let interval = timeNow / 31536000
+
+  const baseURL = "https://berita-indo-api.vercel.app/v1/cnn-news/";
+
   useEffect(() => {
     document.title = "CNN Indonesia Clone | Homepage";
 
     async function getNews() {
-      const request = await fetch(
-        "https://berita-indo-api.vercel.app/v1/cnn-news/"
-      );
+      const request = await fetch(baseURL);
       const response = await request.json();
 
       setNews(response.data);
       setLoading(false);
-
-      console.log(response.data);
     }
     getNews();
   }, []);
+
+  if (!news) return null;
 
   return (
     <div>
@@ -36,17 +40,24 @@ export default function Home() {
                 {news.slice(0, 1).map((newsDisplay) => {
                   return (
                     <>
-                      <a href={newsDisplay.link} className="hover:text-[#c00] transition-all">
+                      <a
+                        href={newsDisplay.link}
+                        className="hover:text-[#c00] transition-all"
+                      >
                         <div className="W-8/12 block">
                           <img
                             src={newsDisplay.image.large}
                             className="w-[740px]"
                           />
                           <div className="relative left-[5%] inline-block -mt-[70px] px-5 py-4 w-[90%] bg-[#fff] shadow-gray-300 shadow-md">
-                            <h3 className="text-[22px] text-black-900 opacity-70 font-semibold transition-all">{newsDisplay.title}</h3>
+                            <h3 className="text-[22px] text-black-900 opacity-70 font-semibold transition-all">
+                              {newsDisplay.title}
+                            </h3>
                             <div className="flex">
-                              <h3 className="pt-2 text-sm text-red-900 font-semibold text-[#c00]">Nasional</h3>
-                              <h3 className="pt-2 text-sm text-black-900 opacity-50"> • 15 Menit yang lalu</h3>
+                              <h3 className="pt-2 text-sm text-red-900 font-semibold text-[#c00]">
+                                Nasional
+                              </h3>
+                              <h3 className="pt-2 text-sm text-black-900 opacity-50"> • 15 Menit Lalu</h3>
                             </div>
                           </div>
                         </div>
@@ -55,7 +66,10 @@ export default function Home() {
                       <div className="w-3/12 block">
                         {news.slice(2, 6).map((newsItem) => {
                           return (
-                            <a href={newsItem.link} className="hover:text-[#c00] transition-all">
+                            <a
+                              href={newsItem.link}
+                              className="hover:text-[#c00] transition-all"
+                            >
                               <div className="flex pb-2">
                                 <div className="px-3">
                                   <img
